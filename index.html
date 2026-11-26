@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mohamed El Mansouri, AI video editor">
+<meta property="og:description" content="Seven years in the cut: reels, podcasts, AI video and motion. Based in Dubai.">
+<meta property="og:image" content="assets/pod_wide.jpg">
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Mohamed AI Video Editor</title>
+<meta name="description" content="Mohamed is an AI video editor in Dubai with seven years in the cut: AI video, reels, motion and long-form editing with Veo 3, Seedance 2.5, Premiere Pro, After Effects and Blender.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* The edit bay: a program monitor over a timeline. One dark look, in the black and signal yellow of his gig covers. */
+:root{
+  color-scheme:dark;
+  --bg:#0e0f12; --panel:#16171c; --panel2:#1c1d23; --line:#2b2d35; --fg:#f4f4f5; --soft:#d5d6db; --mute:#9b9da7;
+  --acc:#F5C518; --ink:#111214; --wa:#25D366; --rec:#ff4136; --wave:#3d7a5a;
+  --sans:"Archivo","Segoe UI",Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
+  --gutter-l:max(18px, env(safe-area-inset-left, 0px)); --gutter-r:max(18px, env(safe-area-inset-right, 0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+
+/* header with the page as a timeline */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:9;background:rgba(14,15,18,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.who{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.who img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:50% 30%;border:2px solid var(--acc);flex:none}
+.who b{font-size:17px;font-weight:800;display:block;line-height:1.15}
+.who span{font-size:12px;color:var(--mute);display:block;white-space:nowrap}
+.nav{display:none;gap:22px;font-size:14px;font-weight:600}
+.nav a{text-decoration:none;color:var(--soft)}
+.nav a:hover{color:var(--acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:800;border-radius:14px;padding:14px 18px;font-size:15.5px;border:1.5px solid transparent;cursor:pointer;font-family:var(--sans)}
+.btn.wa{background:var(--wa);color:#07130b}
+.btn.ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn.sm{padding:9px 14px;font-size:13.5px;border-radius:11px;white-space:nowrap}
+.scrub{height:4px;background:var(--panel2);position:relative}
+.scrub i{position:absolute;inset:0 auto 0 0;width:0;background:var(--acc)}
+
+/* hero */
+.hero{padding-block:22px 8px;display:grid;gap:26px}
+.tc{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.06em;margin-bottom:12px}
+.tc i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--rec);margin-right:7px}
+h1{margin:0;font-weight:900;font-stretch:112%;font-size:clamp(33px,8.8vw,56px);line-height:1.05;letter-spacing:-.025em}
+h1 em{font-style:normal;color:var(--acc);display:block}
+.sub{margin:16px 0 20px;font-size:clamp(16px,2.1vw,18.5px);line-height:1.6;color:var(--soft);max-width:34em}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.cta .btn{flex:1 1 150px}
+.mon{border-radius:18px;background:var(--panel);border:1px solid var(--line);padding:10px;box-shadow:0 0 0 1px #000,0 18px 50px rgba(245,197,24,.10);min-width:0}
+.scr{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;outline:2.5px solid var(--acc);outline-offset:-2.5px;background:var(--bg)}
+.scr video{width:100%;height:100%;object-fit:cover;display:block}
+.chip{position:absolute;top:9px;left:9px;background:var(--acc);color:var(--ink);font-family:var(--mono);font-weight:600;font-size:10.5px;padding:3px 7px;border-radius:5px}
+.views{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.views div{min-width:0;padding:2px 2px 4px}
+.views b{display:block;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--acc);letter-spacing:.05em}
+.views span{display:block;font-size:12px;color:var(--mute);line-height:1.35;margin-top:2px}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);margin-block:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.st{padding:14px 10px;min-width:0}
+.st:nth-child(even){border-left:1px solid var(--line)}
+.st:nth-child(n+3){border-top:1px solid var(--line)}
+.st b{display:block;font-family:var(--mono);font-weight:600;font-size:clamp(21px,5vw,30px);color:var(--acc)}
+.st span{font-size:12.5px;color:var(--mute);line-height:1.4;display:block;margin-top:4px}
+
+/* sections */
+section{padding-block:44px 0}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+h2{margin:0;font-size:clamp(27px,5.6vw,40px);font-weight:900;font-stretch:112%;letter-spacing:-.02em}
+.sh span{font-family:var(--mono);font-size:11px;color:var(--mute);white-space:nowrap}
+.tracks{margin:14px 0 22px;border-top:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:8px;border-bottom:1px solid var(--line);height:30px}
+.tr label{font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+.clips{display:flex;gap:4px;height:18px}
+.clips i{display:block;border-radius:4px;background:#34363f}
+.clips i.y{background:var(--acc)}
+.clips i.w{background:repeating-linear-gradient(90deg,var(--wave) 0 2px,#274d3a 2px 4px)}
+h3{margin:0 0 4px;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.lede{color:var(--soft);margin:0 0 14px;max-width:40em}
+.block{margin-top:38px}
+.tracks+.block{margin-top:0}
+
+.reels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:8px}
+.reel{min-width:0}
+.ph{position:relative;border-radius:18px;overflow:hidden;border:2px solid #2f3139;aspect-ratio:9/16;background:#000}
+.ph video{width:100%;height:100%;object-fit:cover;display:block}
+.ph .badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.72);font-family:var(--mono);font-size:10.5px;padding:3px 7px;border-radius:6px;color:var(--acc)}
+.play{position:absolute;inset:auto 10px 10px auto;width:46px;height:46px;border-radius:50%;border:0;background:var(--acc);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.play svg{width:18px;height:18px}
+.reel h4{margin:10px 0 2px;font-size:15.5px;font-weight:800;line-height:1.3}
+.reel p{margin:0;font-size:13.5px;color:var(--mute);line-height:1.5}
+.reel a{color:var(--acc);font-weight:700;font-size:13.5px;text-decoration:none;display:inline-block;margin-top:6px}
+
+.binlist{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.row{display:grid;grid-template-columns:62px 1fr auto 16px;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);text-decoration:none;font-size:14.5px}
+.row.head{border-top:0;background:var(--panel);font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.06em;padding-block:8px}
+.row.head b,.row.head i{font-weight:500;color:var(--mute);font-size:10.5px}
+.row b{font-family:var(--mono);font-weight:600;color:var(--acc);font-size:15px}
+.row span{min-width:0;color:var(--fg)}
+.row i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--mute);white-space:nowrap}
+.row em{font-style:normal;color:var(--mute)}
+a.row:hover{background:var(--panel)}
+a.row:hover em{color:var(--acc)}
+
+.ep{display:grid;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px}
+.ep video{width:100%;aspect-ratio:16/9;border-radius:12px;display:block;background:#000}
+.ep .txt{padding:4px 8px 10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags span{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--soft)}
+
+/* the bench: tools by bin */
+.bench{margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.bin{display:grid;grid-template-columns:1fr;gap:8px;padding:14px;border-top:1px solid var(--line)}
+.bin:first-child{border-top:0}
+.bin b{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:.05em}
+.tools{display:flex;flex-wrap:wrap;gap:7px}
+.tools span{font-weight:700;font-size:14.5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 11px}
+
+/* services as an edit decision list */
+.edl{margin-top:16px;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:34px 1fr;gap:4px 10px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ev code{font-family:var(--mono);font-size:11.5px;color:var(--mute);padding-top:4px}
+.ev b{font-size:18px;font-weight:800;display:block}
+.ev p{margin:4px 0 0;color:var(--soft);font-size:15px;max-width:44em}
+
+.steps{display:grid;gap:10px;margin-top:16px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.step b{display:block;font-size:16.5px;font-weight:800}
+.step p{margin:4px 0 0;color:var(--soft);font-size:14.5px}
+.step i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--acc);display:block;margin-bottom:6px}
+
+.about{display:grid;gap:18px;align-items:center;margin-top:16px}
+.about img{width:100%;max-width:420px;aspect-ratio:4/5;object-fit:cover;border-radius:18px;border:1px solid var(--line);display:block}
+.about p{margin:0 0 12px;color:var(--soft);max-width:36em}
+.about p strong{color:var(--fg)}
+
+.contact{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px 18px}
+.contact h2{font-size:clamp(26px,6vw,42px)}
+.contact p{color:var(--soft);margin:10px 0 18px;max-width:34em}
+.num{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:17px}
+.num button{font-family:var(--mono);font-size:12px;background:transparent;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-weight:700;font-size:14.5px}
+.links a{color:var(--acc);text-decoration:none}
+footer{padding-block:34px 30px;color:var(--mute);font-size:12.5px;font-family:var(--mono)}
+
+@media (min-width:860px){
+  .nav{display:flex}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .st:nth-child(n+3){border-top:0}
+  .st+.st{border-left:1px solid var(--line)}
+  .hero{grid-template-columns:1.02fr 1fr;align-items:center;gap:44px;padding-block:44px 8px}
+  .reels.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .split{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:start}
+  .binlist{margin-bottom:0}
+  .ep{grid-template-columns:1.5fr 1fr;align-items:center;padding:14px}
+  .ep .txt{padding:6px 14px}
+  .bin{grid-template-columns:190px 1fr;align-items:center}
+  .steps{grid-template-columns:repeat(4,1fr)}
+  .about{grid-template-columns:380px 1fr;gap:40px}
+  .contact{padding:36px 34px}
+  section{padding-block:72px 0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="who" href="#top"><img src="assets/me.jpg" alt="Mohamed"><span><b>Mohamed</b><span>AI video editor · Dubai</span></span></a>
+    <nav class="nav" aria-label="Sections"><a href="#work">Work</a><a href="#tools">Tools</a><a href="#services">Services</a><a href="#about">About</a></nav>
+    <a class="btn wa sm" href="https://wa.me/971525206922?text=Hi%20Mohamed%2C%20I%20saw%20your%20portfolio.%20I%20have%20a%20video%20project%3A" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <div class="scrub" aria-hidden="true"><i id="scrub"></i></div>
+</header>
+
+<main id="top">
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="tc"><span><i></i>PROGRAM</span><span id="tc">00:00:00:00</span></div>
+      <h1>I'm Mohamed,<em>an AI video editor.</em></h1>
+      <p class="sub">Seven years in the cut. I edit reels and long videos in Premiere Pro, generate the shots a camera could not get with Veo 3 and Seedance 2.5, and animate the rest in After Effects and Blender.</p>
+      <div class="cta">
+        <a class="btn wa" href="https://wa.me/971525206922?text=Hi%20Mohamed%2C%20I%20saw%20your%20portfolio.%20I%20have%20a%20video%20project%3A" target="_blank" rel="noopener">Message me on WhatsApp</a>
+        <a class="btn ghost" href="#work">See the work</a>
+      </div>
+    </div>
+    <div class="mon">
+      <div class="scr">
+        <video id="prog" muted loop playsinline preload="auto" poster="assets/hero_multi.jpg"><source src="assets/hero_multi.mp4" type="video/mp4"></video>
+        <span class="chip">MULTIVIEW</span>
+      </div>
+      <div class="views">
+        <div><b>AI FILM</b><span>The Mary Celeste</span></div>
+        <div><b>CLIENT REEL</b><span>Mohammed Aboulfaraj</span></div>
+        <div><b>PODCAST REEL</b><span>Tabaqat Podcast</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="st"><b>7</b><span>years editing video</span></div>
+    <div class="st"><b>30M+</b><span>views on my own channels</span></div>
+    <div class="st"><b>9.7M</b><span>views on 135 client reels since May 2026</span></div>
+    <div class="st"><b>1.6M</b><span>views on the top client reel</span></div>
+  </div>
+
+  <section id="work">
+    <div class="sh"><h2>Work</h2><span>REELS · PODCAST · AI</span></div>
+    <div class="tracks" aria-hidden="true">
+      <div class="tr"><label>V3</label><div class="clips"><i class="y" style="width:22%"></i><i style="width:9%"></i><i class="y" style="width:14%"></i></div></div>
+      <div class="tr"><label>V2</label><div class="clips"><i class="y" style="width:16%"></i><i class="y" style="width:11%"></i><i style="width:8%"></i><i class="y" style="width:19%"></i><i style="width:13%"></i></div></div>
+      <div class="tr"><label>V1</label><div class="clips"><i style="width:44%"></i><i style="width:38%"></i></div></div>
+      <div class="tr"><label>A1</label><div class="clips"><i class="w" style="width:84%"></i></div></div>
+    </div>
+
+    <div class="block">
+      <h3>Reels</h3>
+      <p class="lede">Since May 2026 I edit the reels on Mohammed Aboulfaraj's page (178K followers) and for his Tabaqat Podcast: more than 160 reels and close to 10 million views. Three of them passed a million. View counts as shown on Instagram on 26 November 2026.</p>
+      <div class="binlist">
+        <div class="row head"><b>VIEWS</b><span>REEL</span><i>POSTED</i><em></em></div>
+        <a class="row" href="https://www.instagram.com/reel/DY3uX1ZiaXN/" target="_blank" rel="noopener"><b>1.6M</b><span>How you speak decides whether people listen</span><i>MAY 28</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DfXal4nI6wC/" target="_blank" rel="noopener"><b>1.5M</b><span>How to speak with confidence and make people listen</span><i>NOV 05</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DfU0qqzIxrW/" target="_blank" rel="noopener"><b>1.3M</b><span>His guest episode on NadaHour</span><i>NOV 04</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/Dc3Vk2jxQeR/" target="_blank" rel="noopener"><b>681K</b><span>How confident people open a speech</span><i>SEP 04</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DfZ_Fl_oisl/" target="_blank" rel="noopener"><b>543K</b><span>How to stop seeing yourself as the victim</span><i>NOV 06</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DdtS2H9xDzR/" target="_blank" rel="noopener"><b>470K</b><span>Not everything deserves your attention</span><i>SEP 25</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DaFo2h4iIKI/" target="_blank" rel="noopener"><b>240K</b><span>Don't oppose. Agree, then influence</span><i>JUN 27</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DetxXQMC8Kx/" target="_blank" rel="noopener"><b>195K</b><span>What impression do you leave on people?</span><i>OCT 20</i><em>↗</em></a>
+        <a class="row" href="https://www.instagram.com/reel/DfuxEddRFdc/" target="_blank" rel="noopener"><b>159K</b><span>A reel for his mother</span><i>NOV 14</i><em>↗</em></a>
+      </div>
+      <div class="reels four" style="margin-top:16px">
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/ab_hadiya.jpg"><source src="assets/ab_hadiya.mp4" type="video/mp4"></video><span class="badge">ILLUSTRATED</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>The gift</h4>
+          <p>A story told in drawn scenes, with Arabic and English captions over every line.</p>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/ab_story.jpg"><source src="assets/ab_story.mp4" type="video/mp4"></video><span class="badge">TALK</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>Don't share a story before it is ready</h4>
+          <p>Cut from a live talk: tight pacing, captions, and slides brought into the frame.</p>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/ab_mother.jpg"><source src="assets/ab_mother.mp4" type="video/mp4"></video><span class="badge">159K VIEWS</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>A reel for his mother</h4>
+          <p>The most personal reel on the page, and one of the most watched.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Podcasts</h3>
+      <p class="lede">Full episodes, cut to the conversation instead of the clock.</p>
+      <div class="ep">
+        <video controls playsinline preload="metadata" poster="assets/pod_wide.jpg"><source src="assets/episode.mp4" type="video/mp4"></video>
+        <div class="txt">
+          <h3>Tabaqat Podcast × Rakan Alireza</h3>
+          <p class="lede" style="margin:0">Three cameras. The cut follows whoever carries the moment: the speaker, the reaction, or the wide. Name titles, an intro built from the strongest lines, and subtitles in Arabic and English.</p>
+          <div class="tags"><span>MULTICAM · 3 CAM</span><span>AR + EN SUBTITLES</span><span>INTRO</span><span>NAME TITLES</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <h3>Reels from the podcast</h3>
+      <p class="lede">Cut from Tabaqat episodes, built to be watched with the sound off and on.</p>
+      <div class="reels four">
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/reel_a.jpg"><source src="assets/reel_freedom.mp4" type="video/mp4"></video><span class="badge">121K VIEWS</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>The first step to financial freedom</h4>
+          <p>Tabaqat Podcast, with Mo Gawdat. A numbered caption system and a hook that opens on the claim.</p>
+          <a href="https://www.instagram.com/reel/Df7CnTURWCZ/" target="_blank" rel="noopener">Watch it on Instagram ↗</a>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/reel_regret_first.jpg"><source src="assets/reel_regret.mp4" type="video/mp4"></video><span class="badge">0:33</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>Have you ever regretted a decision?</h4>
+          <p>A black-and-white open, one red word, and b-roll that carries the kintsugi story.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>AI video</h3>
+      <p class="lede">Films and explainers with no shoot day: generated shots, built scenes, and diagrams that move. These are from my own page, @moo4future, where I test each tool before it touches a client's video.</p>
+      <div class="reels four">
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/ai_mary.jpg"><source src="assets/ai_mary.mp4" type="video/mp4"></video><span class="badge">AI FILM</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>The Mary Celeste</h4>
+          <p>The ghost ship of 1872 as an AI short: generated shots, a 3D camera through them, Arabic titles and sound design.</p>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/ai_first.jpg"><source src="assets/ai_first.mp4" type="video/mp4"></video><span class="badge">AI REEL</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>This reel made itself</h4>
+          <p>The first reel on my page: how an AI team writes, shoots and cuts a story, shown from the inside.</p>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/mo_khayyat.jpg"><source src="assets/mo_khayyat.mp4" type="video/mp4"></video><span class="badge">MOTION</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>How Remix refits a song</h4>
+          <p>A Premiere Pro feature drawn as a working diagram. The first cut of this idea passed 86K views.</p>
+        </div>
+        <div class="reel">
+          <div class="ph"><video playsinline preload="metadata" poster="assets/mo_sabboura.jpg"><source src="assets/mo_sabboura.mp4" type="video/mp4"></video><span class="badge">MOTION</span><button class="play" aria-label="Play this video"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></button></div>
+          <h4>Forty notes, one board</h4>
+          <p>Scattered film notes sort themselves into a plan. Built in code, frame by frame.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="sh"><h2>The bench</h2><span>TOOLS BY BIN</span></div>
+    <div class="bench">
+      <div class="bin"><b>AI VIDEO</b><div class="tools"><span>Veo 3</span><span>Seedance 2.5</span><span>Kling</span><span>Higgsfield</span><span>Wan 2.2</span></div></div>
+      <div class="bin"><b>AI IMAGE AND VOICE</b><div class="tools"><span>GPT Image</span><span>FLUX</span><span>ElevenLabs</span></div></div>
+      <div class="bin"><b>EDIT</b><div class="tools"><span>Premiere Pro</span></div></div>
+      <div class="bin"><b>MOTION AND 3D</b><div class="tools"><span>After Effects</span><span>Blender</span></div></div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="sh"><h2>What I do</h2><span>EDL · 4 EVENTS</span></div>
+    <div class="edl">
+      <div class="ev"><code>001</code><div><b>Reels and shorts</b><p>From your raw footage or a full episode: a hook in the first second, animated captions in Arabic and English, music and sound design.</p></div></div>
+      <div class="ev"><code>002</code><div><b>Long videos and podcasts</b><p>YouTube videos and multicam episodes: clean sound, matched colour, titles and subtitles, ready to publish.</p></div></div>
+      <div class="ev"><code>003</code><div><b>Motion explainers</b><p>Your product or idea drawn as it works, with a script and a voice-over, in under a minute.</p></div></div>
+      <div class="ev"><code>004</code><div><b>AI video</b><p>Ads, story reels and b-roll made without a shoot, from stylised scenes to photo-real footage with Seedance 2.5 and Veo 3. I write the shots, generate them, and cut them into one piece with sound.</p></div></div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="sh"><h2>How it runs</h2><span>IN → OUT</span></div>
+    <div class="steps">
+      <div class="step"><i>00:00 IN</i><b>Send the brief</b><p>A link to your footage, or one paragraph on the video you want and a reference you like.</p></div>
+      <div class="step"><i>FIRST CUT</i><b>Watch the cut</b><p>You get a private link to the whole piece, not a sample of it.</p></div>
+      <div class="step"><i>NOTES</i><b>Send your notes</b><p>Write them with timecodes or record a voice note. I apply them and send the new version.</p></div>
+      <div class="step"><i>OUT</i><b>Publish</b><p>Final files in the sizes you post in, named and ready to upload.</p></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sh"><h2>About</h2><span>DUBAI · GMT+4</span></div>
+    <div class="about">
+      <img src="assets/portrait.jpg" alt="Mohamed at his editing desk">
+      <div>
+        <p><strong>I'm Mohamed, a video editor based in Dubai, and I have been cutting video for seven years.</strong> I learned on my own channels, which reached more than 30 million views and 700K subscribers, so I cut for the viewer who is about to swipe away.</p>
+        <p>Today most of my work has AI in it. I run @moo4future, a page about AI tools for video, and every tool on my bench was tested there first. When a shot does not exist, I generate it. When an idea is hard to film, I animate it.</p>
+        <p>Since May 2026 I also edit the reels on Mohammed Aboulfaraj's page and his Tabaqat Podcast: 135 reels and 9.7 million views on his page so far. Arabic is my first language, and I work in Arabic and English.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2>Tell me about the video.</h2>
+      <p>Send a link or a few lines. I'll reply with how I would make it and what it costs.</p>
+      <a class="btn wa" href="https://wa.me/971525206922?text=Hi%20Mohamed%2C%20I%20saw%20your%20portfolio.%20I%20have%20a%20video%20project%3A" target="_blank" rel="noopener">Message me on WhatsApp</a>
+      <div class="num"><span id="num">+971 52 520 6922</span><button id="copy" type="button">Copy number</button></div>
+      <div class="links"><a href="https://www.instagram.com/moo4future/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.fiverr.com/almnsry" target="_blank" rel="noopener">Fiverr ↗</a><a href="https://www.upwork.com/freelancers/~0170cdc4cd89cc13ee" target="_blank" rel="noopener">Upwork ↗</a></div>
+    </div>
+  </section>
+
+  <footer>© 2026 Mohamed · AI video editor · Dubai</footer>
+</div>
+</main>
+
+<script>
+(function(){
+  // The program monitor shows three pieces at once, with a running timecode.
+  var v=document.getElementById('prog'), tc=document.getElementById('tc');
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var t=v.currentTime||0, s=Math.floor(t);
+    tc.textContent='00:'+pad(Math.floor(s/60))+':'+pad(s%60)+':'+pad(Math.floor((t-s)*30));
+    requestAnimationFrame(tick);
+  }
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!calm){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } else { v.controls=true; }
+  requestAnimationFrame(tick);
+
+  // Every phone plays from its own button, one at a time, with sound.
+  var vids=[].slice.call(document.querySelectorAll('.ph video'));
+  var PLAY='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>';
+  var PAUSE='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 4.5h4.5v15H6zM13.5 4.5H18v15h-4.5z"/></svg>';
+  document.querySelectorAll('.ph').forEach(function(ph){
+    var vid=ph.querySelector('video'), btn=ph.querySelector('.play');
+    function set(){ btn.innerHTML = vid.paused ? PLAY : PAUSE; btn.setAttribute('aria-label', vid.paused ? 'Play this video' : 'Pause this video'); }
+    function toggle(){ if(vid.paused){ vids.forEach(function(o){ if(o!==vid) o.pause(); }); var q=vid.play(); if(q&&q.catch) q.catch(function(){}); } else { vid.pause(); } }
+    btn.addEventListener('click', toggle); vid.addEventListener('click', toggle);
+    vid.addEventListener('play', set); vid.addEventListener('pause', set); vid.addEventListener('ended', function(){ vid.currentTime=0; set(); });
+  });
+
+  // The header's scrub bar is the playhead of the page.
+  var bar=document.getElementById('scrub');
+  function scrub(){ var h=document.documentElement, max=h.scrollHeight-h.clientHeight; bar.style.width=(max>0? (h.scrollTop||document.body.scrollTop)/max*100 : 0)+'%'; }
+  window.addEventListener('scroll', scrub, {passive:true}); window.addEventListener('resize', scrub); scrub();
+
+  // Copy the number.
+  var cp=document.getElementById('copy'), num=document.getElementById('num');
+  cp.addEventListener('click', function(){
+    var done=function(){ cp.textContent='Copied'; setTimeout(function(){ cp.textContent='Copy number'; }, 1600); };
+    var sel=function(){ var r=document.createRange(); r.selectNodeContents(num); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); cp.textContent='Selected'; };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText('+971525206922').then(done, sel); } else { sel(); }
+  });
+})();
+</script>
+</body>
+</html>
